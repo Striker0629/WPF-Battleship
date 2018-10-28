@@ -6,6 +6,7 @@
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource AncestorType=Grid},Path=DataContext.ClickCommand }"/>
+            <Setter Property="CommandParameter" Value="{Binding}" />
         </Style>
     </Window.Resources>
     
@@ -17,32 +18,40 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
             <ItemsControl  ItemsSource="{Binding Collection}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="9" Rows="9"/>
+                        <UniformGrid Columns="10" Rows="10"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding}"/>
+                        <Button Content="{Binding Path=Part,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="1">
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" ClipToBounds="True">
+            <Button Command="{Binding StartCommand}">Start</Button>
+            <ToggleButton IsChecked="{Binding IsPlayerAutoSet}">Player Autoset</ToggleButton>
+            <Button Command="{Binding ExitCommand}">Exit</Button>
+            
+        </StackPanel>
+        <Grid Grid.Row="0" Grid.Column="2">
             <ItemsControl  ItemsSource="{Binding GameCollection}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="9" Rows="9"/>
+                        <UniformGrid Columns="10" Rows="10"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding}"/>
+                        <Button Content="{Binding Path=Image, UpdateSourceTrigger=PropertyChanged}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

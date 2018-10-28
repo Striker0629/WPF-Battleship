@@ -23,7 +23,7 @@ namespace WpfApplication4
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(Close);
         }
     }
 }
