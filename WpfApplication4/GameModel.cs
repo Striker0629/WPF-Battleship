@@ -13,7 +13,7 @@ namespace WpfApplication4
     }
     enum GameMode
     {
-        Deploy,Game
+        Deploy, Game
     }
 
     class GameModel
@@ -29,7 +29,7 @@ namespace WpfApplication4
             leftMap = new List<Unit>();
             rightMap = new List<Unit>();
             leftUser = rightUser = Deploy.Auto;
-            SetShip(ref leftMap,Deploy.Auto);
+            //SetShip(ref leftMap,Deploy.Auto);
             isFirstUserTurn = true;
             mode = GameMode.Deploy;
         }
@@ -37,8 +37,8 @@ namespace WpfApplication4
         {
             leftMap.Clear();
             rightMap.Clear();
-            SetShip(ref leftMap, leftUser);
-            SetShip(ref rightMap, Deploy.Auto);
+            //SetShip(ref leftMap, leftUser);
+            //SetShip(ref rightMap, Deploy.Auto);
         }
 
         private void SetShip(ref List<Unit> forset, Deploy user)
@@ -53,9 +53,9 @@ namespace WpfApplication4
                 System.Windows.Forms.MessageBox.Show("Enter");
             }
         }
-        public Boat SetShip(ShipType type, Direction dir,Point point)
+        public Boat SetShip(ShipType type, Direction dir, Point point)
         {
-            if (!Contains(point,(Int32)type) && !HaveShip(point))
+            if (/*!Contains(point, (Int32)type) &&*/ !HaveShip(point))
             {
                 var t = new Boat(type, dir, point);
                 leftMap.Add(t);
@@ -66,12 +66,12 @@ namespace WpfApplication4
 
 
 
-        public Boolean Contains(Point point,Int32 shipSize)
+        public Boolean Contains(Point point, Int32 shipSize)
         {
             List<Unit> map = isFirstUserTurn ? leftMap : rightMap;
             foreach (var i in map)
             {
-                if (i.Exists(point,shipSize))
+                if (i.Exists(point, shipSize))
                     return true;
             }
             return false;
@@ -84,12 +84,12 @@ namespace WpfApplication4
             List<Unit> map = isFirstUserTurn ? leftMap : rightMap;
             boat = map.Find((p) =>
             {
-               if (p is Boat)
-               {
-                   return (p as Boat).Exists(point);
-               }
-               else
-                   return false;
+                if (p is Boat)
+                {
+                    return (p as Boat).Exists(point);
+                }
+                else
+                    return false;
             }) as Boat;
 
             if (boat != null)
@@ -145,10 +145,16 @@ namespace WpfApplication4
         public Boolean HaveShip(Point check)
         {
             List<Unit> map = ActiveField();
+
             foreach (var item in map)
             {
-                if (item.Cord.X == check.X + 1 || item.Cord.X == check.X - 1 || item.Cord.Y == check.Y + 1 || item.Cord.Y == check.Y - 1)
-                    return true;
+                var tempShip = item as Boat;
+                if (tempShip != null)
+                {
+
+                    if (item.Cord.X+tempShip.Body.Length == check.X|| item.Cord.X == check.X - 1 || item.Cord.Y+1 == check.Y ||item.Cord.Y-1==check.Y)
+                        return true;
+                }
             }
             return false;
 

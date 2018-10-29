@@ -20,6 +20,7 @@ namespace WpfApplication4
                     var t = i as ShipViewModel;
                     if (model.Mode == GameMode.Deploy)
                     {
+                       // System.Windows.Forms.MessageBox.Show(String.Format($"{t.Boat.Cord.X},{t.Boat.Cord.Y}"));
                         var index = leftMap.IndexOf(t);
                         var point = ConvertBack(index);
                         Boat res=null;
@@ -27,10 +28,10 @@ namespace WpfApplication4
                             res=model.SetShip(ShipType.DoubleDeck, Direction.Horizontal, point);
                         if (res != null)
                             ConvertModel(res);
-                        else
-                        {
-                            RemoveShip(t);
-                        }
+                        //else
+                        //{
+                        //    RemoveShip(t);
+                        //}
                     }
                     else
                     {
@@ -43,6 +44,11 @@ namespace WpfApplication4
                 });
             }
         }
+        public ShipType Size
+        {
+            get;set;
+        }
+
         public ICommand StartCommand
         {
             get
