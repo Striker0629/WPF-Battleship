@@ -43,7 +43,32 @@
             <Button Command="{Binding StartCommand}">Start</Button>
             <ToggleButton IsChecked="{Binding IsPlayerAutoSet}">Player Autoset</ToggleButton>
             <Button Command="{Binding ExitCommand}">Exit</Button>
-            <ComboBox></ComboBox>
+            <Grid HorizontalAlignment="Stretch"  VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <RadioButton GroupName="ShipType" Grid.Column="0" Content="OneDeck" IsChecked="{Binding OneDeckSelected}" HorizontalAlignment="Center"/>
+                <RadioButton GroupName="ShipType" Grid.Column="1" Content="DoubleDeck"  IsChecked="{Binding DoubleDeckSelected}" HorizontalAlignment="Center"/>
+                <RadioButton GroupName="ShipType" Grid.Column="2" Content="ThreeDeck" IsChecked="{Binding ThreeDeckSelected}" HorizontalAlignment="Center"/>
+                <RadioButton GroupName="ShipType" Grid.Column="3" Content="FourDeck" IsChecked="{Binding FourDeckSelected}" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <RadioButton GroupName="DirectionType" Grid.Column="0" IsChecked="{Binding HorizontalSelected}" Content="Horizontal"/>
+                <RadioButton GroupName="DirectionType" Grid.Column="1" IsChecked="{Binding VerticalSelected}" Content="Vertical"/>
+            </Grid>
             
         </StackPanel>
         <Grid Grid.Row="0" Grid.Column="2">

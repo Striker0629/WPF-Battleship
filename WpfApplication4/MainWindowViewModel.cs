@@ -18,35 +18,33 @@ namespace WpfApplication4
                 return new RelayCommand((i) =>
                 {
                     var t = i as ShipViewModel;
-                    if (model.Mode == GameMode.Deploy)
-                    {
-                       // System.Windows.Forms.MessageBox.Show(String.Format($"{t.Boat.Cord.X},{t.Boat.Cord.Y}"));
-                        var index = leftMap.IndexOf(t);
-                        var point = ConvertBack(index);
-                        Boat res=null;
-                        if(CanInstall(point,Direction.Horizontal,ShipType.DoubleDeck))
-                            res=model.SetShip(ShipType.DoubleDeck, Direction.Horizontal, point);
+
+                    // System.Windows.Forms.MessageBox.Show(String.Format($"{t.Boat.Cord.X},{t.Boat.Cord.Y}"));
+                    var index = leftMap.IndexOf(t);
+                    var point = ConvertBack(index);
+                    Boat res = null;
+                    
+                        if (CanInstall(point, selectedDirection, selectedType))
+                            res = model.SetShip(selectedType, selectedDirection, point);
                         if (res != null)
                             ConvertModel(res);
+                    
                         //else
                         //{
                         //    RemoveShip(t);
                         //}
-                    }
-                    else
-                    {
-                        if (t != null)
-                        {
+                    
 
-                        }
-                    }
+                    //else
+                    //{
+                    //    if (t != null)
+                    //    {
+
+                    //    }
+                    //}
 
                 });
             }
-        }
-        public ShipType Size
-        {
-            get;set;
         }
 
         public ICommand StartCommand
@@ -84,11 +82,84 @@ namespace WpfApplication4
                 return rightMap;
             }
         }
+        public ShipType ShipSize
+        {
+            get
+            {
+                return selectedType;
+            }
+            set
+            {
+                selectedType = value;
+            }
+        }
+        public Boolean OneDeckSelected
+        {
+            set
+            {
+                if (value)
+                {
+                    selectedType = ShipType.OneDeck;
+                }
+            }
+        }
+        public Boolean DoubleDeckSelected
+        {
+            set
+            {
+                if (value)
+                {
+                    selectedType = ShipType.DoubleDeck;
+                }
+            }
+        }
+        public Boolean ThreeDeckSelected
+        {
+            set
+            {
+                if (value)
+                {
+                    selectedType = ShipType.ThreeDeck;
+                }
+            }
+        }
+        public Boolean FourDeckSelected
+        {
+            set
+            {
+                if (value)
+                {
+                    selectedType = ShipType.FourDeck;
+                }
+            }
+        }
+        public Boolean HorizontalSelected
+        {
+
+            set
+            {
+                if (value)
+                {
+                    selectedDirection =  Direction.Horizontal;
+                }
+            }
+        }
+        public Boolean VerticalSelected
+        {
+            set
+            {
+                if (value)
+                {
+                    selectedDirection = Direction.Vertical;
+                }
+            }
+        }
         List<ShipViewModel> leftMap;
         List<ShipViewModel> rightMap;
         Action exit;
         GameModel model;
-
+        ShipType selectedType;
+        Direction selectedDirection;
         public Boolean CanInstall(Point forCheck, Direction direction, ShipType size)
         {
             switch (direction)
@@ -103,7 +174,7 @@ namespace WpfApplication4
                 case Direction.Vertical:
                     {
                         var result = ConvertCoordinate(forCheck);
-                        var tempResult = ConvertBack(result + ((Int32)size)*10);
+                        var tempResult = ConvertBack(result + ((Int32)size) * 10);
                         if (forCheck.X != tempResult.X) return false;
                         break;
                     }
@@ -127,7 +198,7 @@ namespace WpfApplication4
                 leftMap.Add(new ShipViewModel());
                 //rightMap.Add(new ShipViewModel());
             }
-
+            
         }
         private void ConvertModel(Boat boat)
         {
@@ -184,6 +255,6 @@ namespace WpfApplication4
             });
             model.Delete(forDelete.Boat);
         }
-        
+
     }
 }
