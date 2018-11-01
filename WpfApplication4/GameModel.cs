@@ -22,7 +22,7 @@ namespace WpfApplication4
         List<Unit> rightMap;
         Boolean isFirstUserTurn;
         Deploy leftUser;
-        Deploy rightUser;
+         Deploy rightUser;
         GameMode mode;
         public GameModel()
         {
@@ -142,6 +142,8 @@ namespace WpfApplication4
             return map;
         }
 
+        /// <summary>
+        /// Доработать проверки корабля, особенно ответственную за Y
         public Boolean HaveShip(Point check)
         {
             List<Unit> map = ActiveField();
@@ -151,15 +153,17 @@ namespace WpfApplication4
                 var tempShip = item as Boat;
                 if (tempShip != null)
                 {
-
-                    if (item.Cord.X+tempShip.Body.Length == check.X|| item.Cord.X == check.X - 1 || item.Cord.Y+1 == check.Y ||item.Cord.Y-1==check.Y)
+                    
+                    if ((item.Cord.X  == check.X   &&( item.Cord.Y + 1 == check.Y || item.Cord.Y - 1 == check.Y))
+                        || item.Cord.Y == check.Y && (item.Cord.X == check.X || item.Cord.X+tempShip.Body.Length ==check.X))
                         return true;
                 }
             }
             return false;
 
         }
-
+        /// </summary>
+        /// <param name="boat"></param>
         internal void Delete(Boat boat)
         {
             leftMap.Remove(boat);
