@@ -22,7 +22,7 @@ namespace WpfApplication4
         List<Unit> rightMap;
         Boolean isFirstUserTurn;
         Deploy leftUser;
-         Deploy rightUser;
+        Deploy rightUser;
         GameMode mode;
         public GameModel()
         {
@@ -147,19 +147,47 @@ namespace WpfApplication4
         public Boolean HaveShip(Point check)
         {
             List<Unit> map = ActiveField();
-
+            //{
+        //    System.Windows.Forms.MessageBox.Show(String.Format("Check X == {0},Check  Y =={1}", check.X, check.Y));
             foreach (var item in map)
             {
                 var tempShip = item as Boat;
                 if (tempShip != null)
                 {
-                    
-                    if ((item.Cord.X  == check.X   &&( item.Cord.Y + 1 == check.Y || item.Cord.Y - 1 == check.Y))
-                        || item.Cord.Y == check.Y && (item.Cord.X == check.X || item.Cord.X+tempShip.Body.Length ==check.X))
+
+                    //if ((item.Cord.X == check.X && (item.Cord.Y + 1 == check.Y || item.Cord.Y - 1 == check.Y || item.Cord.Y == check.Y))
+                    //    || item.Cord.Y == check.Y && (item.Cord.X == check.X || item.Cord.X + tempShip.Body.Length == check.X) ||
+                    //    item.Cord.Y == check.Y && item.Cord.X - 1 == check.X || item.Cord.X + tempShip.Body.Length + 1 == check.X)
+                 
+                    if ((item.Cord.X == check.X - 1 && item.Cord.Y == check.Y) ||
+                        (item.Cord.X == check.X && item.Cord.Y == check.Y + 1) ||
+                        (item.Cord.X == check.X + 1 && item.Cord.Y == check.Y + 1) ||
+                        (item.Cord.X == check.X && item.Cord.Y == check.Y - 1) || 
+                        (item.Cord.X==check.X+1 && item.Cord.Y==check.Y-1) ||
+                        (item.Cord.X==check.X-1 && item.Cord.Y==check.Y-1) ||
+                        (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y) ||
+                        (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y - 1) ||
+                        (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y + 1) || 
+                        (item.Cord.X-tempShip.Body.Length==check.X && item.Cord.Y==check.Y) || 
+                         (item.Cord.X - tempShip.Body.Length == check.X && item.Cord.Y == check.Y - 1) ||
+                        (item.Cord.X - tempShip.Body.Length == check.X && item.Cord.Y == check.Y + 1))
+                    {
                         return true;
+                    }
                 }
             }
             return false;
+
+            // (gameAr[coordX - 1][coordY - 1] == toc)) &&
+            //((coordX == 1) || (gameAr[coordX - 1][coordY] == toc)) &&
+            //    ((coordX == 1 || coordY == 10) || (gameAr[coordX - 1][coordY + 1] == toc)) &&
+            //    ((coordY == 1) || (gameAr[coordX][coordY - 1] == toc)) &&
+            //    (gameAr[coordX][coordY] == toc) &&
+            //    ((coordY == 10) || (gameAr[coordX][coordY + 1] == toc)) &&
+            //    ((coordX == 10 || coordY == 1) || (gameAr[coordX + 1][coordY - 1] == toc)) &&
+            //    ((coordX == 10) || (gameAr[coordX + 1][coordY] == toc)) &&
+            //    ((coordX == 10 || coordY == 10) || (gameAr[coordX + 1][coordY + 1] == toc))
+            //    );
 
         }
         /// </summary>

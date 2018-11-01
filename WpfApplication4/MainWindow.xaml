@@ -33,8 +33,10 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Path=Part,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        
+                        <Button>
+                            <Image Source="{Binding Path=Part,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Button>
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -80,7 +82,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Path=Image, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Content="{Binding Path=Part, UpdateSourceTrigger=PropertyChanged}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
