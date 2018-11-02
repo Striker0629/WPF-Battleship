@@ -7,8 +7,8 @@
     <ProjectGuid>{56B9DD85-135C-4595-80B9-B545B3779E5D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WpfApplication4</RootNamespace>
-    <AssemblyName>WpfApplication4</AssemblyName>
+    <RootNamespace>Battleship</RootNamespace>
+    <AssemblyName>Battleship</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,12 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Boat.cs" />
-    <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="GameModel.cs" />
+    <Compile Include="Models\Boat.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Models\GameModel.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Compile Include="ShipViewModel.cs" />
-    <Compile Include="Unit.cs" />
+    <Compile Include="ViewModels\ShipViewModel.cs" />
+    <Compile Include="Models\Unit.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +109,7 @@
     <Resource Include="Resources\ship-bak.jpg" />
     <Resource Include="Resources\ship-end.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

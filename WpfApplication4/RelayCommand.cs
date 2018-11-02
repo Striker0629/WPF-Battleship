@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace WpfApplication4
+namespace Battleship
 {
     
     class RelayCommand:ICommand

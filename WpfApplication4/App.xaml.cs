@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfApplication4
+namespace Battleship
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

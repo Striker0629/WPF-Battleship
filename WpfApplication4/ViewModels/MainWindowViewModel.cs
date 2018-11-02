@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Drawing;
-namespace WpfApplication4
+using Battleship.Models;
+
+namespace Battleship.ViewModels
 {
     class MainWindowViewModel : BindableBase
     {
+        #region Properties
         public ICommand ClickCommand
         {
             get
@@ -46,7 +49,6 @@ namespace WpfApplication4
                 });
             }
         }
-
         public ICommand StartCommand
         {
             get
@@ -154,12 +156,14 @@ namespace WpfApplication4
                 }
             }
         }
-        List<ShipViewModel> leftMap;
-        List<ShipViewModel> rightMap;
-        Action exit;
-        GameModel model;
-        ShipType selectedType;
-        Direction selectedDirection;
+        #endregion
+
+        private List<ShipViewModel> leftMap;
+        private List<ShipViewModel> rightMap;
+        private Action exit;
+        private GameModel model;
+        private ShipType selectedType;
+        private Direction selectedDirection;
         public Boolean CanInstall(Point forCheck, Direction direction, ShipType size)
         {
             switch (direction)

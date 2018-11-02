@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Windows;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-namespace WpfApplication4
+using Battleship.Models;
+namespace Battleship.ViewModels
 {
     class ShipViewModel:BindableBase
     {
@@ -14,7 +11,7 @@ namespace WpfApplication4
         private Boat boat;
         private int currentPart;
         //string forwrite;
-        static private Dictionary<String, ImageSource> ShipParts;
+        static private Dictionary<ShipPart, ImageSource> ShipParts;
         private ImageSource part;
         static ShipViewModel()
         {
@@ -23,16 +20,16 @@ namespace WpfApplication4
             {
 
            
-            var bak = new BitmapImage(new Uri("pack://application:,,,/WpfApplication4;component/Resources/ship-bak.jpg",UriKind.RelativeOrAbsolute));
-            var end = new BitmapImage(new Uri("pack://application:,,,/WpfApplication4;component/Resources/ship-end.jpg", UriKind.RelativeOrAbsolute));
-            var clear = new BitmapImage(new Uri("pack://application:,,,/WpfApplication4;component/Resources/clear.jpg", UriKind.RelativeOrAbsolute));
+            var bak = new BitmapImage(new Uri("pack://application:,,,/Battleship;component/Resources/ship-bak.jpg",UriKind.RelativeOrAbsolute));
+            var end = new BitmapImage(new Uri("pack://application:,,,/Battleship;component/Resources/ship-end.jpg", UriKind.RelativeOrAbsolute));
+            var clear = new BitmapImage(new Uri("pack://application:,,,/Battleship;component/Resources/clear.jpg", UriKind.RelativeOrAbsolute));
            
-                ShipParts = new Dictionary<string, ImageSource>();
+                ShipParts = new Dictionary<ShipPart, ImageSource>();
 
             //this.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/myapp;component/Images/icon.png")));
-            ShipParts.Add("bak", bak);
-            ShipParts.Add("end", end);
-            ShipParts.Add("clear",clear);
+            ShipParts.Add(ShipPart.Tank, bak);
+            ShipParts.Add(ShipPart.Stern, end);
+            ShipParts.Add(ShipPart.Body,clear);
             }
             catch (Exception ex)
             {
@@ -42,13 +39,15 @@ namespace WpfApplication4
             }
         public ShipViewModel()
         {
-           //
+            //
+            part = ShipParts[ShipPart.Tank];
+            //this.boat = boat;
             ++counter;
         }
         
         public ShipViewModel(Boat boat, int index)
         {
-            part = ShipParts["bak"];
+            part = ShipParts[ShipPart.Tank];
             this.boat = boat;
             this.currentPart = index;
             //forwrite = index.ToString();
@@ -75,12 +74,26 @@ namespace WpfApplication4
         //            break;
         //    }
         //}
+        public static   ImageSource IndetifyShipPart(int index,Direction direction,ShipType type)
+        {
+            if(direction==Direction.Horizontal)
+            {
+                if (index == 0) return ShipParts[ShipPart.Stern];
+                else if (index > 0 && index < (Int32)type) return ShipParts[ShipPart.Body];
+                else return ShipParts[ShipPart.Tank];
+            }
+            else if(direction==Direction.Vertical)
+            {
+                return null;
+            }
+            return null;
+        }
         public ImageSource Part
         {
             get 
             {
 //                return boat == null ?ShipParts["clear"]: part;  
-                return ShipParts["end"];
+                return (boat == null) ? ShipParts[ShipPart.Body] : part;
                 //return forwrite;
             }
         }
