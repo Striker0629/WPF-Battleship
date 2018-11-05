@@ -213,12 +213,14 @@ namespace Battleship.ViewModels
                 {
                     leftMap[res + i].Boat = boat;
                     leftMap[res + i].IndexOfPart = i;
+                    leftMap[res + i].Part = ShipViewModel.IndetifyShipPart(i, boat.Direction, boat.type);
                     leftMap[res + i].Refresh();
                 }
                 else
                 {
                     leftMap[res + (i * 10)].Boat = boat;
                     leftMap[res + (i * 10)].IndexOfPart = i;
+                    leftMap[res + (i*10)].Part = ShipViewModel.IndetifyShipPart(i, boat.Direction, boat.type);
                     leftMap[res + (i * 10)].Refresh();
                 }
             }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace Battleship.Models
@@ -30,11 +27,11 @@ namespace Battleship.Models
     {
         #region Properties
         public Boolean[] Body { get; set; }
-        public Direction Direction { get; private set; }
 
         #endregion
+        public readonly Direction Direction;
 
-        private ShipType type;
+        public readonly ShipType type;
         //private Boolean[] Body;
         public Boat(ShipType type, Direction direct, Point cord)
             : base(cord)
