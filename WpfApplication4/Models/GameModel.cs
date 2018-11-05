@@ -87,13 +87,67 @@ namespace Battleship.Models
 
         public Boat SetShip(ShipType type, Direction dir, Point point)
         {
-            if (/*!Contains(point, (Int32)type) &&*/ !HaveShip(point))
+            //if (/*!Contains(point, (Int32)type) &&*/ !HaveShip(point))
+            //{
+            //    var t = new Boat(type, dir, point);
+            //    leftMap.Add(t);
+            //    return t;
+            //}
+            var temporary = new Boat(type, dir, point);
+            int counter = 0;
+            for (int i = 0; i < (Int32)type; ++i)
             {
-                var t = new Boat(type, dir, point);
-                leftMap.Add(t);
-                return t;
+                Point p = new Point();
+                if (dir == Direction.Horizontal)
+                {
+                    p.X = point.X + i;
+                    p.Y = point.Y;
+                }
+                else if (dir == Direction.Vertical)
+                {
+                    //p.X = Point.X;
+                    
+                }
+                if (!CheckPoint(p)) ++counter;
+            }
+            if (counter == (Int32)type)
+            {
+                leftMap.Add(temporary);
+                return temporary;
             }
             return null;
+        }
+
+        //Придумать способ регистрации занятых ячеек
+        private bool CheckPoint(Point point)
+        {
+            var currentMap = ActiveField();
+            foreach (var cell in currentMap)
+            {
+                //        item.Cord.X == check.X - 1 && item.Cord.Y == check.Y) ||
+                ////                (item.Cord.X == check.X && item.Cord.Y == check.Y + 1) ||
+                ////                (item.Cord.X == check.X + 1 && item.Cord.Y == check.Y + 1) ||
+                ////                (item.Cord.X == check.X && item.Cord.Y == check.Y - 1) || 
+                ////                (item.Cord.X==check.X+1 && item.Cord.Y==check.Y-1) ||
+                ////                (item.Cord.X==check.X-1 && item.Cord.Y==check.Y-1) ||
+                //var tempShip = cell as Boat;
+                //if (tempShip != null)
+                //{
+                    if (cell.Cord.X == point.X && cell.Cord.Y == point.Y ||
+                      cell.Cord.X == point.X && cell.Cord.Y + 1 == point.Y ||
+                      cell.Cord.X == point.X && cell.Cord.Y - 1 == point.Y ||
+                      cell.Cord.X-1 == point.X  && cell.Cord.Y -1 == point.Y  ||
+                      cell.Cord.X-1 == point.X && cell.Cord.Y == point.Y ||
+                      cell.Cord.X-1 == point.X && cell.Cord.Y+1 == point.Y  ||
+                      cell.Cord.X+1 == point.X && cell.Cord.Y-1 == point.Y ||
+                      cell.Cord.X + 1 == point.X && cell.Cord.Y == point.Y ||
+                      cell.Cord.X + 1 == point.X && cell.Cord.Y + 1 == point.Y )
+                    {
+                        return true;
+                    }
+                //}
+            }
+            return false;
         }
 
         public Boolean Contains(Point point, Int32 shipSize)
@@ -141,35 +195,35 @@ namespace Battleship.Models
             return map;
         }
 
-        public Boolean HaveShip(Point check)
-        {
-            List<Unit> map = ActiveField();
+        //public Boolean HaveShip(Point check)
+        //{
+        //    List<Unit> map = ActiveField();
 
-            foreach (var item in map)
-            {
-                var tempShip = item as Boat;
-                if (tempShip != null)
-                {                 
-                    if ((item.Cord.X == check.X - 1 && item.Cord.Y == check.Y) ||
-                        (item.Cord.X == check.X && item.Cord.Y == check.Y + 1) ||
-                        (item.Cord.X == check.X + 1 && item.Cord.Y == check.Y + 1) ||
-                        (item.Cord.X == check.X && item.Cord.Y == check.Y - 1) || 
-                        (item.Cord.X==check.X+1 && item.Cord.Y==check.Y-1) ||
-                        (item.Cord.X==check.X-1 && item.Cord.Y==check.Y-1) ||
-                        (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y) ||
-                        (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y - 1) ||
-                        (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y + 1) || 
-                        (item.Cord.X-tempShip.Body.Length==check.X && item.Cord.Y==check.Y) || 
-                         (item.Cord.X - tempShip.Body.Length == check.X && item.Cord.Y == check.Y - 1) ||
-                        (item.Cord.X - tempShip.Body.Length == check.X && item.Cord.Y == check.Y + 1))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+        //    foreach (var item in map)
+        //    {
+        //        var tempShip = item as Boat;
+        //        if (tempShip != null)
+        //        {                 
+        //            if ((item.Cord.X == check.X - 1 && item.Cord.Y == check.Y) ||
+        //                (item.Cord.X == check.X && item.Cord.Y == check.Y + 1) ||
+        //                (item.Cord.X == check.X + 1 && item.Cord.Y == check.Y + 1) ||
+        //                (item.Cord.X == check.X && item.Cord.Y == check.Y - 1) || 
+        //                (item.Cord.X==check.X+1 && item.Cord.Y==check.Y-1) ||
+        //                (item.Cord.X==check.X-1 && item.Cord.Y==check.Y-1) ||
+        //                (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y) ||
+        //                (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y - 1) ||
+        //                (item.Cord.X + tempShip.Body.Length == check.X && item.Cord.Y == check.Y + 1) || 
+        //                (item.Cord.X-tempShip.Body.Length==check.X && item.Cord.Y==check.Y) || 
+        //                 (item.Cord.X - tempShip.Body.Length == check.X && item.Cord.Y == check.Y - 1) ||
+        //                (item.Cord.X - tempShip.Body.Length == check.X && item.Cord.Y == check.Y + 1))
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    return false;
 
-        }
+        //}
         internal void Delete(Boat boat)
         {
             leftMap.Remove(boat);
