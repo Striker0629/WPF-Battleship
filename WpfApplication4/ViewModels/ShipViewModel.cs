@@ -12,7 +12,7 @@ namespace Battleship.ViewModels
             get
             {
                 //                return boat == null ?ShipParts["clear"]: part;  
-                return (boat == null) ? horizontalShipParts[ShipPart.Body] : part;
+                return boat == null ? empty : part;
                 //return forwrite;
             }
             set
@@ -47,6 +47,7 @@ namespace Battleship.ViewModels
         //string forwrite;
         static private Dictionary<ShipPart, ImageSource> horizontalShipParts;
         static private Dictionary<ShipPart, ImageSource> verticalShipParts;
+        static private ImageSource empty;
         private ImageSource part;
         static ShipViewModel()
         {
@@ -59,10 +60,12 @@ namespace Battleship.ViewModels
                 verticalShipParts = new Dictionary<ShipPart, ImageSource>();
                 verticalShipParts.Add(ShipPart.Tank, new BitmapImage(new Uri("pack://application:,,,/Battleship;component/Resources/v-ship-bak.jpg", UriKind.RelativeOrAbsolute)));
                 verticalShipParts.Add(ShipPart.Stern, end);
-                verticalShipParts.Add(ShipPart.Body, clear);
+                verticalShipParts.Add(ShipPart.Body, end);
                 horizontalShipParts.Add(ShipPart.Tank, bak);
                 horizontalShipParts.Add(ShipPart.Stern, end);
-                horizontalShipParts.Add(ShipPart.Body, clear);
+                horizontalShipParts.Add(ShipPart.Body, end);
+                empty = clear;
+
             }
             catch (Exception ex)
             {

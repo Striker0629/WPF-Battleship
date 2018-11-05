@@ -17,26 +17,23 @@ namespace Battleship.ViewModels
         {
             get
             {
-
                 return new RelayCommand((i) =>
                 {
                     var t = i as ShipViewModel;
-
-                    // System.Windows.Forms.MessageBox.Show(String.Format($"{t.Boat.Cord.X},{t.Boat.Cord.Y}"));
                     var index = leftMap.IndexOf(t);
                     var point = ConvertBack(index);
                     Boat res = null;
-                    
-                        if (CanInstall(point, selectedDirection, selectedType))
-                            res = model.SetShip(selectedType, selectedDirection, point);
-                        if (res != null)
-                            ConvertModel(res);
-                    
-                        //else
-                        //{
-                        //    RemoveShip(t);
-                        //}
-                    
+
+                    if (CanInstall(point, selectedDirection, selectedType))
+                        res = model.SetShip(selectedType, selectedDirection, point);
+                    if (res != null)
+                        ConvertModel(res);
+
+                    //else
+                    //{
+                    //    RemoveShip(t);
+                    //}
+
 
                     //else
                     //{
@@ -142,7 +139,7 @@ namespace Battleship.ViewModels
             {
                 if (value)
                 {
-                    selectedDirection =  Direction.Horizontal;
+                    selectedDirection = Direction.Horizontal;
                 }
             }
         }
@@ -157,13 +154,15 @@ namespace Battleship.ViewModels
             }
         }
         #endregion
-
+        #region Field
         private List<ShipViewModel> leftMap;
         private List<ShipViewModel> rightMap;
         private Action exit;
         private GameModel model;
         private ShipType selectedType;
         private Direction selectedDirection;
+        #endregion
+        #region Methods
         public Boolean CanInstall(Point forCheck, Direction direction, ShipType size)
         {
             switch (direction)
@@ -186,9 +185,6 @@ namespace Battleship.ViewModels
                     break;
             }
             return true;
-
-
-
         }
 
         public MainWindowViewModel(Action act)
@@ -202,7 +198,6 @@ namespace Battleship.ViewModels
                 leftMap.Add(new ShipViewModel());
                 //rightMap.Add(new ShipViewModel());
             }
-            
         }
         private void ConvertModel(Boat boat)
         {
@@ -220,7 +215,7 @@ namespace Battleship.ViewModels
                 {
                     leftMap[res + (i * 10)].Boat = boat;
                     leftMap[res + (i * 10)].IndexOfPart = i;
-                    leftMap[res + (i*10)].Part = ShipViewModel.IndetifyShipPart(i, boat.Direction, boat.type);
+                    leftMap[res + (i * 10)].Part = ShipViewModel.IndetifyShipPart(i, boat.Direction, boat.type);
                     leftMap[res + (i * 10)].Refresh();
                 }
             }
@@ -236,7 +231,6 @@ namespace Battleship.ViewModels
             Int32 x = index - (y * 10);
             return new Point(x, y);
         }
-
 
         private void Start()
         {
@@ -261,6 +255,6 @@ namespace Battleship.ViewModels
             });
             model.Delete(forDelete.Boat);
         }
-
+        #endregion
     }
 }

@@ -16,7 +16,7 @@ namespace Battleship.Models
 
     enum ShipPart
     {
-        Body, Stern, Tank
+        Body, Stern, Tank,Null
     }
 
     enum Direction
